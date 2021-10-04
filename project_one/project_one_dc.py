@@ -42,7 +42,7 @@ class Player:
             self.absorb = self.absorb - damage
             print("Your shield absorbed the damage")
             print(f"You have {self.absorb} damage remaining in your shield")
-        elif self.absorb < damage:
+        else:
             damage = damage - self.absorb
             print(f"You absorb {self.absorb} damage, and take {damage} damage.")
             self.absorb = 0
@@ -57,3 +57,44 @@ class Player:
               f"Player strength: {self.strength}\n"
               f"Player Intelligence: {self.intelligence}\n"
               f"Player Fortitude: {self.fortitude}")
+
+class Goblin:
+
+    def __init__(self):
+        self.health = 50
+        self.base_damage = 5
+        self.dead = False
+
+    def get_attacked(self, damage):
+        self.health = self.health - damage
+        if self.health < 0:
+            self.health = 0
+
+    def is_dead(self):
+        if self.health == 0:
+            dead = True
+
+        return self.dead
+
+    def attack(self, target):
+        damage = self.base_damage + random.randrange(1,4)
+        target.get_attacked(damage)
+        
+
+    def get_health(self):
+        print(f"The goblin has {self.health} health remaining.")
+
+
+def __main__():
+    a_player = Player()
+    a_goblin = Goblin()
+
+    a_player.inspect_character()
+
+    a_player.attack(a_goblin)
+    a_goblin.get_health()
+    a_goblin.attack(a_player)
+
+
+if __name__ == "__main__":
+    __main__()
